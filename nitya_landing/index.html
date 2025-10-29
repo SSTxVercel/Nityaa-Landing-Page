@@ -337,7 +337,14 @@
             <div class="app-link-container">
                 <div class="cta-title">Ready to Get Started?</div>
                 <div class="cta-subtitle">Download Nitya today and experience a helping hand in your pocket</div>
-                <a href="https://drive.google.com/drive/folders/1oGhJqGbdF-KjAxXJ7r84F-cDLXF-4CS0?usp=drive_link" class="app-link" id="appLink" target="_blank" rel="noopener noreferrer">📱 Download Now</a>
+                <a href="https://drive.google.com/drive/folders/1oGhJqGbdF-KjAxXJ7r84F-cDLXF-4CS0?usp=drive_link"
+                   class="app-link"
+                   id="appLink"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Download Nitya from Google Drive">
+                   📱 Download Nitya
+                </a>
             </div>
         </div>
 
@@ -379,8 +386,15 @@
             });
         });
 
-        // No JS click handler for the Download button is needed anymore:
-        // the anchor has a direct href and opens in a new tab (target="_blank" rel="noopener noreferrer").
+        // The download link is a normal anchor that opens the Drive folder in a new tab.
+        // Optionally, if you want to ensure the link opens programmatically, uncomment the handler below:
+        /*
+        document.getElementById('appLink').addEventListener('click', function (e) {
+            // Prevent default only if you want to handle opening explicitly
+            // e.preventDefault();
+            window.open(this.href, '_blank', 'noopener');
+        });
+        */
 
         // Add parallax effect to floating shapes
         document.addEventListener('mousemove', (e) => {
