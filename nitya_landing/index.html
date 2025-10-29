@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nitya - Your Daily Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo {
+            font-size: 3.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tagline {
+            font-size: 1.8em;
+            color: #5a67d8;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            animation: fadeInUp 1s ease;
+            animation-fill-mode: both;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5em;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .feature-desc {
+            color: #718096;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .app-link-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            animation: pulse 2s ease infinite;
+        }
+
+        .cta-title {
+            font-size: 2.2em;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 35px;
+        }
+
+        .app-link {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.4em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .app-link:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background: #f7fafc;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            background: #667eea;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            background: #764ba2;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape3 {
+            width: 80px;
+            height: 80px;
+            background: #f093fb;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #718096;
+            font-size: 1.1em;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5em;
+            }
+            .tagline {
+                font-size: 1.4em;
+            }
+            .hero-section {
+                padding: 40px 25px;
+            }
+            .app-link-container {
+                padding: 35px 20px;
+            }
+            .cta-title {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">🌸 Nitya</div>
+            <div class="tagline">Your Daily Companion</div>
+            <div class="subtitle">Designed with love for our elderly community - making everyday life simpler, safer, and more connected</div>
+        </header>
+
+        <div class="hero-section">
+            <div class="features">
+                <div class="feature-card">
+                    <span class="feature-icon">👨‍⚕️</span>
+                    <div class="feature-title">Health Reminders</div>
+                    <div class="feature-desc">Never miss your medications with gentle, timely reminders that care for your wellbeing</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">👨‍👩‍👧‍👦</span>
+                    <div class="feature-title">Family Connect</div>
+                    <div class="feature-desc">Stay close to your loved ones with easy video calls and instant messaging</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🆘</span>
+                    <div class="feature-title">Emergency SOS</div>
+                    <div class="feature-desc">Quick access to emergency contacts and services when you need them most</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📅</span>
+                    <div class="feature-title">Simple Calendar</div>
+                    <div class="feature-desc">Keep track of appointments, events, and important dates with ease</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="app-link-container">
+                <div class="cta-title">Ready to Get Started?</div>
+                <div class="cta-subtitle">Download Nitya today and experience a helping hand in your pocket</div>
+                <a href="#" class="app-link" id="appLink">📱 Download Now</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>🌟 Nitya - Empowering Independence, Ensuring Peace of Mind 🌟</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Feature card interaction
+        const cards = document.querySelectorAll('.feature-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.style.color = 'white';
+                
+                const title = this.querySelector('.feature-title');
+                const desc = this.querySelector('.feature-desc');
+                title.style.color = 'white';
+                desc.style.color = 'rgba(255,255,255,0.9)';
+                
+                setTimeout(() => {
+                    this.style.background = 'white';
+                    this.style.color = '';
+                    title.style.color = '';
+                    desc.style.color = '';
+                }, 1500);
+            });
+        });
+
+        // App link click handler - Replace with your actual app link
+        document.getElementById('appLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Replace this URL with your actual app download link
+            const appUrl = 'https://drive.google.com/drive/folders/1oGhJqGbdF-KjAxXJ7r84F-cDLXF-4CS0?usp=drive_link';
+            
+            // For demonstration, show an alert
+            alert('Add your Nitya app download link here!\n\nReplace "YOUR_APP_LINK_HERE" in the code with your actual app store link.');
+            
+            // Uncomment the line below when you have your app link
+            // window.open(appUrl, '_blank');
+        });
+
+        // Add parallax effect to floating shapes
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.shape');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                shape.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
