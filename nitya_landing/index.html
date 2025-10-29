@@ -337,7 +337,7 @@
             <div class="app-link-container">
                 <div class="cta-title">Ready to Get Started?</div>
                 <div class="cta-subtitle">Download Nitya today and experience a helping hand in your pocket</div>
-                <a href="#" class="app-link" id="appLink">📱 Download Now</a>
+                <a href="https://drive.google.com/drive/folders/1oGhJqGbdF-KjAxXJ7r84F-cDLXF-4CS0?usp=drive_link" class="app-link" id="appLink" target="_blank" rel="noopener noreferrer">📱 Download Now</a>
             </div>
         </div>
 
@@ -379,18 +379,8 @@
             });
         });
 
-        // App link click handler - Replace with your actual app link
-        document.getElementById('appLink').addEventListener('click', function(e) {
-            e.preventDefault();
-            // Replace this URL with your actual app download link
-            const appUrl = 'https://drive.google.com/drive/folders/1oGhJqGbdF-KjAxXJ7r84F-cDLXF-4CS0?usp=drive_link';
-            
-            // For demonstration, show an alert
-            alert('Add your Nitya app download link here!\n\nReplace "YOUR_APP_LINK_HERE" in the code with your actual app store link.');
-            
-            // Uncomment the line below when you have your app link
-            // window.open(appUrl, '_blank');
-        });
+        // No JS click handler for the Download button is needed anymore:
+        // the anchor has a direct href and opens in a new tab (target="_blank" rel="noopener noreferrer").
 
         // Add parallax effect to floating shapes
         document.addEventListener('mousemove', (e) => {
